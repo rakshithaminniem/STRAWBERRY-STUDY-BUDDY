@@ -1,7 +1,7 @@
 # 🍓 Strawberry Study Buddy
 
 
-![Strawberry Study Buddy](Screenshot%202026-08-21%20at%2014.24.26.png)
+![Strawberry Study Buddy](Screenshot%202026-08-21%20at%2014.54.00.png)
 
 ![Strawberry Study Buddy](Screenshot%202026-08-21%20at%2014.39.39.png)
 
