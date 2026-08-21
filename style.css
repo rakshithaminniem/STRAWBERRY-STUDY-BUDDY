@@ -1,0 +1,498 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Quicksand',sans-serif;
+}
+
+body{
+
+    min-height:100vh;
+
+    background:linear-gradient(
+        180deg,
+        #ffe6f2,
+        #ffd6ec,
+        #fff0f6
+    );
+
+    overflow-x:hidden;
+
+    position:relative;
+
+    color:#7a4e68;
+}
+
+/* Pages */
+
+.page{
+
+    display:none;
+
+    min-height:100vh;
+
+    padding:40px 20px;
+
+    justify-content:center;
+    align-items:center;
+
+}
+
+.page.active{
+
+    display:flex;
+
+}
+
+/* Cards */
+
+.card{
+
+    width:90%;
+    max-width:700px;
+
+    background:rgba(
+        255,
+        255,
+        255,
+        0.85
+    );
+
+    backdrop-filter:blur(10px);
+
+    border-radius:30px;
+
+    padding:35px;
+
+    text-align:center;
+
+    box-shadow:
+    0 8px 25px rgba(
+        255,
+        170,
+        210,
+        0.35
+    );
+
+}
+
+h1{
+
+    color:#ff5c99;
+
+    margin-bottom:15px;
+
+}
+
+h2{
+
+    color:#ff5c99;
+
+    margin-bottom:20px;
+
+}
+
+/* Inputs */
+
+input{
+
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:15px;
+
+    margin:10px 0;
+
+    background:#fff7fb;
+
+    font-size:16px;
+
+}
+
+input:focus{
+
+    outline:none;
+
+    box-shadow:
+    0 0 10px #ffbdd7;
+
+}
+
+/* Buttons */
+
+button{
+
+    border:none;
+
+    border-radius:18px;
+
+    padding:12px 18px;
+
+    margin:8px;
+
+    cursor:pointer;
+
+    background:#ff9cc5;
+
+    color:white;
+
+    font-weight:bold;
+
+    transition:0.3s;
+
+}
+
+button:hover{
+
+    transform:translateY(-3px)
+    scale(1.05);
+
+}
+
+#logoutBtn{
+
+    background:#ff7aa8;
+
+}
+
+/* Lists */
+
+ul{
+
+    list-style:none;
+
+    margin-top:20px;
+
+}
+
+li{
+
+    background:#fff6fb;
+
+    margin:10px 0;
+
+    padding:12px;
+
+    border-radius:15px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+/* Cat */
+
+.cat-home{
+
+    font-size:90px;
+
+    animation:bounce 2s infinite;
+
+}
+
+@keyframes bounce{
+
+    0%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-10px);
+    }
+
+    100%{
+        transform:translateY(0);
+    }
+
+}
+
+/* Timer */
+
+#timerDisplay{
+
+    font-size:60px;
+
+    font-weight:bold;
+
+    color:#ff5c99;
+
+    margin:25px 0;
+
+}
+
+/* Support Message */
+
+#supportMessage{
+
+    margin-top:25px;
+
+    padding:15px;
+
+    border-radius:15px;
+
+    background:#ffe8f3;
+
+    color:#ff5c99;
+
+    font-weight:bold;
+
+}
+
+/* Input Rows */
+
+.input-row{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:15px;
+
+}
+
+.input-row input{
+
+    flex:1;
+
+}
+
+/* Footer */
+
+footer{
+
+    text-align:center;
+
+    padding:20px;
+
+    color:#ff82af;
+
+}
+
+/* Sparkles */
+
+#sparkle-container{
+
+    position:fixed;
+
+    width:100%;
+    height:100%;
+
+    pointer-events:none;
+
+    z-index:9999;
+
+}
+
+.sparkle{
+
+    position:fixed;
+
+    font-size:18px;
+
+    animation:sparkleFloat 0.8s linear forwards;
+
+}
+
+@keyframes sparkleFloat{
+
+    from{
+
+        opacity:1;
+        transform:translateY(0);
+
+    }
+
+    to{
+
+        opacity:0;
+        transform:translateY(-25px);
+
+    }
+
+}
+
+/* Floating Decorations */
+
+.floating-container{
+
+    position:fixed;
+
+    width:100%;
+    height:100%;
+
+    pointer-events:none;
+
+    overflow:hidden;
+
+    z-index:-1;
+
+}
+
+.berry,
+.heart,
+.cloud{
+
+    position:absolute;
+
+    opacity:0.8;
+
+}
+
+.berry{
+
+    font-size:40px;
+
+    animation:floatBerry 15s linear infinite;
+
+}
+
+.heart{
+
+    font-size:35px;
+
+    animation:floatHeart 18s linear infinite;
+
+}
+
+.cloud{
+
+    font-size:60px;
+
+    animation:floatCloud 25s linear infinite;
+
+}
+
+/* Positions */
+
+.berry1{
+
+    left:5%;
+    top:80%;
+
+}
+
+.berry2{
+
+    left:80%;
+    top:70%;
+
+}
+
+.berry3{
+
+    left:50%;
+    top:90%;
+
+}
+
+.heart1{
+
+    left:20%;
+    top:85%;
+
+}
+
+.heart2{
+
+    left:90%;
+    top:75%;
+
+}
+
+.cloud1{
+
+    left:10%;
+    top:10%;
+
+}
+
+.cloud2{
+
+    left:70%;
+    top:20%;
+
+}
+
+/* Animations */
+
+@keyframes floatBerry{
+
+    from{
+        transform:
+        translateY(0)
+        rotate(0deg);
+    }
+
+    to{
+        transform:
+        translateY(-120vh)
+        rotate(360deg);
+    }
+
+}
+
+@keyframes floatHeart{
+
+    from{
+        transform:
+        translateY(0);
+    }
+
+    to{
+        transform:
+        translateY(-120vh);
+    }
+
+}
+
+@keyframes floatCloud{
+
+    0%{
+        transform:
+        translateX(-100px);
+    }
+
+    100%{
+        transform:
+        translateX(100vw);
+    }
+
+}
+
+/* Mobile */
+
+@media(max-width:700px){
+
+    .card{
+
+        width:95%;
+
+        padding:25px;
+
+    }
+
+    #timerDisplay{
+
+        font-size:45px;
+
+    }
+
+    .cat-home{
+
+        font-size:70px;
+
+    }
+
+    .input-row{
+
+        flex-direction:column;
+
+    }
+
+}

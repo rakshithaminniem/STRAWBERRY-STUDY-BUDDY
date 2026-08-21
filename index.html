@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strawberry Study Buddy 🍓</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =====================================
+           RESET & BASE
+        ===================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* =====================================
+           PAGES
+        ===================================== */
+        .page {
+            display: none;
+            width: 100%;
+            max-width: 500px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =====================================
+           CARDS
+        ===================================== */
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(233, 30, 99, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #880e4f;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #880e4f;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #6a1b4d;
+            text-align: center;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        /* =====================================
+           INPUTS
+        ===================================== */
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 14px 18px;
+            margin: 10px 0;
+            border: 2px solid #f8bbd0;
+            border-radius: 50px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #e91e63;
+            box-shadow: 0 0 0 4px rgba(233, 30, 99, 0.1);
+            background: white;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .input-row input {
+            flex: 1;
+            margin: 0;
+        }
+
+        /* =====================================
+           BUTTONS
+        ===================================== */
+        button {
+            background: linear-gradient(135deg, #e91e63, #c2185b);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+            width: 100%;
+            margin: 8px 0;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(233, 30, 99, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .backBtn {
+            background: rgba(233, 30, 99, 0.1);
+            color: #880e4f;
+            box-shadow: none;
+            margin-bottom: 15px;
+            width: auto;
+            padding: 8px 20px;
+            font-size: 0.9rem;
+        }
+
+        .backBtn:hover {
+            background: rgba(233, 30, 99, 0.2);
+            box-shadow: none;
+            transform: translateX(-3px);
+        }
+
+        /* =====================================
+           CAT
+        ===================================== */
+        .cat-home {
+            font-size: 4rem;
+            text-align: center;
+            margin: 10px 0;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        #catMood {
+            font-size: 1rem;
+            color: #6a1b4d;
+            font-weight: 600;
+            min-height: 30px;
+        }
+
+        /* =====================================
+           TIMER
+        ===================================== */
+        #timerDisplay {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #880e4f;
+            text-align: center;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            background: rgba(248, 187, 208, 0.2);
+            border-radius: 20px;
+            margin: 20px 0;
+        }
+
+        /* =====================================
+           LISTS
+        ===================================== */
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            background: rgba(248, 187, 208, 0.2);
+            padding: 12px 18px;
+            margin: 8px 0;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(233, 30, 99, 0.1);
+        }
+
+        ul li:hover {
+            background: rgba(248, 187, 208, 0.3);
+            transform: translateX(5px);
+        }
+
+        ul li button {
+            width: auto;
+            padding: 5px 15px;
+            margin: 0;
+            background: rgba(233, 30, 99, 0.2);
+            color: #880e4f;
+            box-shadow: none;
+            font-size: 0.9rem;
+        }
+
+        ul li button:hover {
+            background: rgba(233, 30, 99, 0.3);
+            transform: scale(1.05);
+            box-shadow: none;
+        }
+
+        ul li span {
+            flex: 1;
+            margin-right: 10px;
+            color: #4a152f;
+            font-weight: 600;
+        }
+
+        /* Checklist checkbox styling */
+        #checklist li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        #checklist input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #e91e63;
+            cursor: pointer;
+        }
+
+        #checklist li span {
+            flex: 1;
+        }
+
+        /* =====================================
+           SUPPORT MESSAGE
+        ===================================== */
+        #supportMessage {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #e91e63;
+            font-weight: 700;
+            padding: 15px;
+            background: rgba(248, 187, 208, 0.2);
+            border-radius: 20px;
+            margin-top: 20px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* =====================================
+           SPARKLES
+        ===================================== */
+        #sparkle-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            overflow: hidden;
+        }
+
+        .sparkle {
+            position: fixed;
+            font-size: 20px;
+            pointer-events: none;
+            animation: sparkleFade 0.8s ease forwards;
+        }
+
+        @keyframes sparkleFade {
+            0% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0) rotate(180deg);
+            }
+        }
+
+        /* =====================================
+           FLOATING DECORATIONS
+        ===================================== */
+        .floating-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .berry, .heart, .cloud {
+            position: absolute;
+            font-size: 2rem;
+            animation: floatAround 15s ease-in-out infinite;
+            opacity: 0.3;
+        }
+
+        .berry1 { top: 10%; left: 5%; animation-delay: 0s; }
+        .berry2 { top: 60%; right: 5%; animation-delay: 5s; }
+        .berry3 { bottom: 20%; left: 10%; animation-delay: 10s; }
+        
+        .heart1 { top: 20%; right: 10%; animation-delay: 3s; font-size: 2.5rem; }
+        .heart2 { bottom: 40%; left: 5%; animation-delay: 8s; font-size: 2.5rem; }
+        
+        .cloud1 { top: 5%; right: 20%; animation-delay: 2s; font-size: 3rem; opacity: 0.2; }
+        .cloud2 { bottom: 10%; right: 15%; animation-delay: 7s; font-size: 3rem; opacity: 0.2; }
+
+        @keyframes floatAround {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(20px, -30px) rotate(5deg);
+            }
+            50% {
+                transform: translate(-10px, -50px) rotate(-5deg);
+            }
+            75% {
+                transform: translate(30px, -20px) rotate(3deg);
+            }
+        }
+
+        /* =====================================
+           FOOTER
+        ===================================== */
+        footer {
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #880e4f;
+            font-weight: 600;
+            font-size: 0.9rem;
+            opacity: 0.6;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 8px 20px;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+            white-space: nowrap;
+        }
+
+        /* =====================================
+           RESPONSIVE
+        ===================================== */
+        @media (max-width: 600px) {
+            .card {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+            }
+            
+            #timerDisplay {
+                font-size: 3rem;
+            }
+            
+            .cat-home {
+                font-size: 3rem;
+            }
+            
+            button {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .floating-container {
+                display: none;
+            }
+            
+            footer {
+                font-size: 0.7rem;
+                padding: 5px 15px;
+                bottom: 10px;
+                white-space: normal;
+                max-width: 90%;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .input-row {
+                flex-direction: column;
+            }
+            
+            .input-row button {
+                width: 100%;
+            }
+            
+            #timerDisplay {
+                font-size: 2.5rem;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sparkles -->
+    <div id="sparkle-container"></div>
+
+    <!-- Floating Decorations -->
+    <div class="floating-container">
+        <div class="berry berry1">🍓</div>
+        <div class="berry berry2">🍓</div>
+        <div class="berry berry3">🍓</div>
+        <div class="heart heart1">💖</div>
+        <div class="heart heart2">💗</div>
+        <div class="cloud cloud1">☁️</div>
+        <div class="cloud cloud2">☁️</div>
+    </div>
+
+    <!-- LOGIN PAGE -->
+    <section id="loginPage" class="page active">
+        <div class="card">
+            <h1>🍓 Strawberry Study Buddy</h1>
+            <p>Your cozy study companion 🌸</p>
+            <input type="text" id="usernameInput" placeholder="Username">
+            <input type="password" id="passwordInput" placeholder="Password">
+            <button id="loginBtn">Enter Garden 🌷</button>
+        </div>
+    </section>
+
+    <!-- HOME PAGE -->
+    <section id="homePage" class="page">
+        <div class="card">
+            <h1>🍓 Strawberry Study Buddy</h1>
+            <p id="welcomeText">Welcome!</p>
+            <div id="studyCat" class="cat-home">😺</div>
+            <p id="catMood">Ready to study with you! 🍓</p>
+            <button id="openTimer">⏰ Start Timer</button>
+            <button id="openGoals">🎯 Goals</button>
+            <button id="openChecklist">✅ Today's Checklist</button>
+            <button id="openSubjects">📚 Subjects</button>
+            <button id="logoutBtn">🚪 Logout</button>
+        </div>
+    </section>
+
+    <!-- TIMER PAGE -->
+    <section id="timerPage" class="page">
+        <div class="card">
+            <button class="backBtn">← Home</button>
+            <h2>⏰ Study Timer</h2>
+            <div id="studyCatTimer" class="cat-home">😴</div>
+            <p>Choose your focus session 🌸</p>
+            <button id="set25">🌷 25 Minutes</button>
+            <button id="set45">🍓 45 Minutes</button>
+            <div id="timerDisplay">25:00</div>
+            <button id="startTimer">▶ Start</button>
+            <button id="pauseTimer">⏸ Pause</button>
+            <button id="resumeTimer">🔄 Resume</button>
+            <button id="resetTimer">🔁 Reset</button>
+        </div>
+    </section>
+
+    <!-- GOALS PAGE -->
+    <section id="goalsPage" class="page">
+        <div class="card">
+            <button class="backBtn">← Home</button>
+            <h2>🎯 Today's Goals</h2>
+            <div class="input-row">
+                <input type="text" id="goalInput" placeholder="Add a goal">
+                <button id="addGoalBtn">Add Goal</button>
+            </div>
+            <ul id="goalList"></ul>
+        </div>
+    </section>
+
+    <!-- CHECKLIST PAGE -->
+    <section id="checklistPage" class="page">
+        <div class="card">
+            <button class="backBtn">← Home</button>
+            <h2>✅ Today's Checklist</h2>
+            <ul id="checklist"></ul>
+            <div id="supportMessage">You're doing amazing! 🌸</div>
+        </div>
+    </section>
+
+    <!-- SUBJECTS PAGE -->
+    <section id="subjectsPage" class="page">
+        <div class="card">
+            <button class="backBtn">← Home</button>
+            <h2>📚 Study Subjects</h2>
+            <div class="input-row">
+                <input type="text" id="subjectInput" placeholder="Add subject">
+                <button id="addSubjectBtn">Add Subject</button>
+            </div>
+            <ul id="subjectList"></ul>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>🍓 Made with strawberries, sparkles and determination ✨</footer>
+
+    <script>
+        // =====================================
+        // PAGE NAVIGATION
+        // =====================================
+
+        const pages = document.querySelectorAll(".page");
+
+        function showPage(pageId) {
+            pages.forEach(page => {
+                page.classList.remove("active");
+            });
+            document.getElementById(pageId).classList.add("active");
+        }
+
+        // =====================================
+        // USER SYSTEM
+        // =====================================
+
+        let currentUser = null;
+        const loginBtn = document.getElementById("loginBtn");
+        const welcomeText = document.getElementById("welcomeText");
+
+        // =====================================
+        // LOGIN
+        // =====================================
+
+        loginBtn.addEventListener("click", () => {
+            const username = document.getElementById("usernameInput").value.trim();
+            const password = document.getElementById("passwordInput").value.trim();
+
+            if (!username || !password) {
+                alert("Please fill all fields 🌸");
+                return;
+            }
+
+            let users = JSON.parse(localStorage.getItem("users")) || [];
+            const existingUser = users.find(user => user.username === username);
+
+            // LOGIN
+            if (existingUser) {
+                if (existingUser.password !== password) {
+                    alert("🍓 Username exists! Wrong password.");
+                    return;
+                }
+                currentUser = username;
+                welcomeText.textContent = `Welcome back, ${username}! 🍓`;
+            }
+            // CREATE ACCOUNT
+            else {
+                const newUser = { username, password };
+                users.push(newUser);
+                localStorage.setItem("users", JSON.stringify(users));
+                currentUser = username;
+                welcomeText.textContent = `Welcome, ${username}! 🍓`;
+            }
+
+            localStorage.setItem("currentUser", currentUser);
+            showPage("homePage");
+            loadUserData();
+        });
+
+        // =====================================
+        // AUTO LOGIN
+        // =====================================
+
+        const savedUser = localStorage.getItem("currentUser");
+
+        if (savedUser) {
+            currentUser = savedUser;
+            welcomeText.textContent = `Welcome back, ${savedUser}! 🍓`;
+            showPage("homePage");
+            loadUserData();
+        }
+
+        // =====================================
+        // LOGOUT
+        // =====================================
+
+        const logoutBtn = document.getElementById("logoutBtn");
+
+        logoutBtn.addEventListener("click", () => {
+            localStorage.removeItem("currentUser");
+            currentUser = null;
+            document.getElementById("usernameInput").value = "";
+            document.getElementById("passwordInput").value = "";
+            showPage("loginPage");
+        });
+
+        // =====================================
+        // HOME BUTTONS
+        // =====================================
+
+        document.getElementById("openTimer").addEventListener("click", () => {
+            showPage("timerPage");
+        });
+
+        document.getElementById("openGoals").addEventListener("click", () => {
+            showPage("goalsPage");
+        });
+
+        document.getElementById("openChecklist").addEventListener("click", () => {
+            showPage("checklistPage");
+        });
+
+        document.getElementById("openSubjects").addEventListener("click", () => {
+            showPage("subjectsPage");
+        });
+
+        // =====================================
+        // BACK BUTTONS
+        // =====================================
+
+        document.querySelectorAll(".backBtn").forEach(button => {
+            button.addEventListener("click", () => {
+                showPage("homePage");
+            });
+        });
+
+        // =====================================
+        // USER DATA KEYS
+        // =====================================
+
+        function goalsKey() {
+            return `goals_${currentUser}`;
+        }
+
+        function subjectsKey() {
+            return `subjects_${currentUser}`;
+        }
+
+        let goals = [];
+        let subjects = [];
+
+        // =====================================
+        // GOALS ELEMENTS
+        // =====================================
+
+        const goalInput = document.getElementById("goalInput");
+        const addGoalBtn = document.getElementById("addGoalBtn");
+        const goalList = document.getElementById("goalList");
+        const checklist = document.getElementById("checklist");
+
+        // =====================================
+        // SAVE GOALS
+        // =====================================
+
+        function saveGoals() {
+            localStorage.setItem(goalsKey(), JSON.stringify(goals));
+        }
+
+        // =====================================
+        // RENDER GOALS
+        // =====================================
+
+        function renderGoals() {
+            if (!goalList || !checklist) return;
+            
+            goalList.innerHTML = "";
+            checklist.innerHTML = "";
+
+            goals.forEach((goal, index) => {
+                // GOAL ITEM
+                const goalItem = document.createElement("li");
+                const text = document.createElement("span");
+                text.textContent = "🎯 " + goal.text;
+
+                const deleteBtn = document.createElement("button");
+                deleteBtn.innerHTML = "🗑️";
+                deleteBtn.addEventListener("click", () => {
+                    goals.splice(index, 1);
+                    saveGoals();
+                    renderGoals();
+                });
+
+                goalItem.appendChild(text);
+                goalItem.appendChild(deleteBtn);
+                goalList.appendChild(goalItem);
+
+                // CHECKLIST ITEM
+                const checkItem = document.createElement("li");
+                const checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.checked = goal.completed;
+
+                checkbox.addEventListener("change", () => {
+                    goals[index].completed = checkbox.checked;
+                    saveGoals();
+                    if (checkbox.checked) {
+                        randomMessage();
+                        celebrate();
+                    }
+                });
+
+                const span = document.createElement("span");
+                span.textContent = goal.text;
+
+                checkItem.appendChild(checkbox);
+                checkItem.appendChild(span);
+                checklist.appendChild(checkItem);
+            });
+        }
+
+        // =====================================
+        // ADD GOAL
+        // =====================================
+
+        addGoalBtn.addEventListener("click", () => {
+            const value = goalInput.value.trim();
+            if (!value) return;
+
+            goals.push({
+                text: value,
+                completed: false
+            });
+
+            goalInput.value = "";
+            saveGoals();
+            renderGoals();
+        });
+
+        // Allow Enter key for goals
+        goalInput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+                addGoalBtn.click();
+            }
+        });
+
+        // =====================================
+        // SUBJECT ELEMENTS
+        // =====================================
+
+        const subjectInput = document.getElementById("subjectInput");
+        const addSubjectBtn = document.getElementById("addSubjectBtn");
+        const subjectList = document.getElementById("subjectList");
+
+        // =====================================
+        // SAVE SUBJECTS
+        // =====================================
+
+        function saveSubjects() {
+            localStorage.setItem(subjectsKey(), JSON.stringify(subjects));
+        }
+
+        // =====================================
+        // RENDER SUBJECTS
+        // =====================================
+
+        function renderSubjects() {
+            if (!subjectList) return;
+            
+            subjectList.innerHTML = "";
+
+            subjects.forEach((subject, index) => {
+                const li = document.createElement("li");
+                const text = document.createElement("span");
+                text.textContent = "📚 " + subject;
+
+                const deleteBtn = document.createElement("button");
+                deleteBtn.innerHTML = "🗑️";
+                deleteBtn.addEventListener("click", () => {
+                    subjects.splice(index, 1);
+                    saveSubjects();
+                    renderSubjects();
+                });
+
+                li.appendChild(text);
+                li.appendChild(deleteBtn);
+                subjectList.appendChild(li);
+            });
+        }
+
+        // =====================================
+        // ADD SUBJECT
+        // =====================================
+
+        addSubjectBtn.addEventListener("click", () => {
+            const value = subjectInput.value.trim();
+            if (!value) return;
+
+            subjects.push(value);
+            subjectInput.value = "";
+            saveSubjects();
+            renderSubjects();
+        });
+
+        // Allow Enter key for subjects
+        subjectInput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+                addSubjectBtn.click();
+            }
+        });
+
+        // =====================================
+        // UPDATE USER DATA LOADER
+        // =====================================
+
+        function loadUserData() {
+            if (!currentUser) return;
+            
+            goals = JSON.parse(localStorage.getItem(goalsKey())) || [];
+            subjects = JSON.parse(localStorage.getItem(subjectsKey())) || [];
+            
+            renderGoals();
+            renderSubjects();
+        }
+
+        // =====================================
+        // CAT SYSTEM
+        // =====================================
+
+        const studyCat = document.getElementById("studyCat");
+        const catMood = document.getElementById("catMood");
+        const studyCatTimer = document.getElementById("studyCatTimer");
+
+        function catHappy() {
+            if (studyCat) studyCat.innerHTML = "😺";
+            if (studyCatTimer) studyCatTimer.innerHTML = "😺";
+            if (catMood) catMood.textContent = "Ready to study together! 🍓";
+        }
+
+        function catStudying() {
+            if (studyCat) studyCat.innerHTML = "😴";
+            if (studyCatTimer) studyCatTimer.innerHTML = "😴";
+            if (catMood) catMood.textContent = "I'm waiting quietly while you focus... 💤";
+        }
+
+        function catPaused() {
+            if (studyCat) studyCat.innerHTML = "🙀";
+            if (studyCatTimer) studyCatTimer.innerHTML = "🙀";
+            if (catMood) catMood.textContent = "Taking a little break? 💖";
+        }
+
+        function catReset() {
+            if (studyCat) studyCat.innerHTML = "😿";
+            if (studyCatTimer) studyCatTimer.innerHTML = "😿";
+            if (catMood) catMood.textContent = "Session cancelled, but we can always try again 🌷";
+        }
+
+        function catFinished() {
+            if (studyCat) studyCat.innerHTML = "😸";
+            if (studyCatTimer) studyCatTimer.innerHTML = "😸";
+            if (catMood) catMood.textContent = "YOU DID IT!! 🍓✨";
+        }
+
+        // =====================================
+        // SUPPORT MESSAGES
+        // =====================================
+
+        const supportMessage = document.getElementById("supportMessage");
+
+        const messages = [
+            "Great job! 🍓",
+            "You're doing amazing! 🌸",
+            "Progress is progress 💖",
+            "One task at a time 🌷",
+            "Keep going! ✨",
+            "Your future self will thank you 🍓",
+            "You're stronger than you think 💕",
+            "Look at you go! 🌸"
+        ];
+
+        function randomMessage() {
+            if (!supportMessage) return;
+            supportMessage.textContent = messages[Math.floor(Math.random() * messages.length)];
+        }
+
+        // =====================================
+        // TIMER
+        // =====================================
+
+        const timerDisplay = document.getElementById("timerDisplay");
+        const set25 = document.getElementById("set25");
+        const set45 = document.getElementById("set45");
+        const startTimer = document.getElementById("startTimer");
+        const pauseTimer = document.getElementById("pauseTimer");
+        const resumeTimer = document.getElementById("resumeTimer");
+        const resetTimer = document.getElementById("resetTimer");
+
+        let totalSeconds = 1500;
+        let selectedTime = 1500;
+        let timerInterval;
+        let isPaused = false;
+        let isTimerRunning = false;
+
+        function updateTimer() {
+            if (!timerDisplay) return;
+            const mins = Math.floor(totalSeconds / 60);
+            const secs = totalSeconds % 60;
+            timerDisplay.textContent = `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+            isTimerRunning = false;
+        }
+
+        if (set25) {
+            set25.addEventListener("click", () => {
+                stopTimer();
+                selectedTime = 1500;
+                totalSeconds = 1500;
+                isPaused = false;
+                isTimerRunning = false;
+                updateTimer();
+                catHappy();
+            });
+        }
+
+        if (set45) {
+            set45.addEventListener("click", () => {
+                stopTimer();
+                selectedTime = 2700;
+                totalSeconds = 2700;
+                isPaused = false;
+                isTimerRunning = false;
+                updateTimer();
+                catHappy();
+            });
+        }
+
+        if (startTimer) {
+            startTimer.addEventListener("click", () => {
+                if (isTimerRunning) return;
+                
+                stopTimer();
+                isPaused = false;
+                isTimerRunning = true;
+                catStudying();
+
+                timerInterval = setInterval(() => {
+                    if (!isPaused) {
+                        totalSeconds--;
+                        updateTimer();
+
+                        if (totalSeconds <= 0) {
+                            stopTimer();
+                            if (timerDisplay) timerDisplay.textContent = "Done! 🎉";
+                            catFinished();
+                            celebrate();
+                            randomMessage();
+                            
+                            try {
+                                const audio = new Audio("https://actions.google.com/sounds/v1/alarms/beep_short.ogg");
+                                audio.play();
+                            } catch (error) {}
+
+                            alert("🍓 Study Session Complete!");
+                            isTimerRunning = false;
+                        }
+                    }
+                }, 1000);
+            });
+        }
+
+        if (pauseTimer) {
+            pauseTimer.addEventListener("click", () => {
+                if (isTimerRunning && !isPaused) {
+                    isPaused = true;
+                    catPaused();
+                }
+            });
+        }
+
+        if (resumeTimer) {
+            resumeTimer.addEventListener("click", () => {
+                if (isTimerRunning && isPaused) {
+                    isPaused = false;
+                    catStudying();
+                }
+            });
+        }
+
+        if (resetTimer) {
+            resetTimer.addEventListener("click", () => {
+                stopTimer();
+                totalSeconds = selectedTime;
+                isPaused = false;
+                isTimerRunning = false;
+                updateTimer();
+                catReset();
+            });
+        }
+
+        updateTimer();
+
+        // =====================================
+        // SPARKLE CURSOR
+        // =====================================
+
+        const sparkleContainer = document.getElementById("sparkle-container");
+
+        if (sparkleContainer) {
+            document.addEventListener("mousemove", (e) => {
+                const sparkle = document.createElement("div");
+                sparkle.classList.add("sparkle");
+                const sparkles = ["✨", "🌸", "💖", "⭐"];
+                sparkle.innerHTML = sparkles[Math.floor(Math.random() * sparkles.length)];
+                sparkle.style.left = e.clientX + "px";
+                sparkle.style.top = e.clientY + "px";
+                sparkleContainer.appendChild(sparkle);
+
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 800);
+            });
+        }
+
+        // =====================================
+        // CELEBRATION
+        // =====================================
+
+        function celebrate() {
+            const emojis = ["🍓", "🌸", "💖", "✨"];
+
+            for (let i = 0; i < 25; i++) {
+                const piece = document.createElement("div");
+                piece.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                piece.style.position = "fixed";
+                piece.style.left = Math.random() * 100 + "vw";
+                piece.style.top = "-20px";
+                piece.style.fontSize = "24px";
+                piece.style.zIndex = "9999";
+                piece.style.pointerEvents = "none";
+                document.body.appendChild(piece);
+
+                piece.animate([
+                    { transform: "translateY(0)" },
+                    { transform: "translateY(110vh)" }
+                ], {
+                    duration: 3000 + Math.random() * 2000
+                });
+
+                setTimeout(() => {
+                    piece.remove();
+                }, 5000);
+            }
+        }
+
+        // =====================================
+        // RANDOM CAT QUOTES
+        // =====================================
+
+        const catQuotes = [
+            "Let's earn some strawberries 🍓",
+            "One small step at a time 🌷",
+            "You can do this 💖",
+            "Let's focus together 🌸",
+            "I believe in you ✨",
+            "Every task matters 🍓"
+        ];
+
+        setInterval(() => {
+            if (studyCat && studyCat.innerHTML === "😺" && catMood) {
+                catMood.textContent = catQuotes[Math.floor(Math.random() * catQuotes.length)];
+            }
+        }, 10000);
+
+        // =====================================
+        // STARTUP
+        // =====================================
+
+        catHappy();
+        updateTimer();
+    </script>
+</body>
+</html>
