@@ -1,6 +1,17 @@
 # 🍓 Strawberry Study Buddy
 
-![Strawberry Study Buddy](Screenshot.png)
+
+![Strawberry Study Buddy](Screenshot%202026-08-21%20at%2014.24.26.png)
+
+![Strawberry Study Buddy](Screenshot%202026-08-21%20at%2014.39.39.png)
+
+![Strawberry Study Buddy](Screenshot%202026-08-21%20at%2014.39.48.png)
+
+![Strawberry Study Buddy](Screenshot%202026-08-21%20at%2014.39.55.png)
+
+![Strawberry Study Buddy](Screenshot%202026-08-21%20at%2014.40.00.png)
+
+![Strawberry Study Buddy](Screenshot%202026-08-21%20at%2014.40.06.png)
 
 ## What is this?
 I was supposed to study.
